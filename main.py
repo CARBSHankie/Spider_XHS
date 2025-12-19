@@ -1,5 +1,13 @@
+import sys
+import io
 import json
 import os
+
+# Fix Windows encoding issue for Chinese characters
+if sys.platform == 'win32':
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+    sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8')
+
 from loguru import logger
 from apis.xhs_pc_apis import XHS_Apis
 from xhs_utils.common_util import init
@@ -128,12 +136,12 @@ if __name__ == '__main__':
 
     # 1 爬取列表的所有笔记信息 笔记链接 如下所示 注意此url会过期！
     notes = [
-        r'https://www.xiaohongshu.com/explore/683fe17f0000000023017c6a?xsec_token=ABBr_cMzallQeLyKSRdPk9fwzA0torkbT_ubuQP1ayvKA=&xsec_source=pc_user',
+        r'https://www.xiaohongshu.com/explore/69425c4a000000001e0376c5?xsec_token=AB_NMRiBCBkWZDiaXpvCbhjrgvMmlsGTII3FVJ8QPqVa8=&xsec_source=pc_user',
     ]
-    data_spider.spider_some_note(notes, cookies_str, base_path, 'all', 'test')
+    # data_spider.spider_some_note(notes, cookies_str, base_path, 'all', 'test')
 
     # 2 爬取用户的所有笔记信息 用户链接 如下所示 注意此url会过期！
-    user_url = 'https://www.xiaohongshu.com/user/profile/64c3f392000000002b009e45?xsec_token=AB-GhAToFu07JwNk_AMICHnp7bSTjVz2beVIDBwSyPwvM=&xsec_source=pc_feed'
+    user_url = 'https://www.xiaohongshu.com/user/profile/60c755b500000000200282c4?xsec_token=ABDCZ_aMXnKNuFuBcz814e1l6_S28DWgzB9MJvLcvew2I%3D&xsec_source=pc_search'
     data_spider.spider_user_all_note(user_url, cookies_str, base_path, 'all')
 
     # 3 搜索指定关键词的笔记
@@ -149,4 +157,4 @@ if __name__ == '__main__':
     #     "latitude": 39.9725,
     #     "longitude": 116.4207
     # }
-    data_spider.spider_some_search_note(query, query_num, cookies_str, base_path, 'all', sort_type_choice, note_type, note_time, note_range, pos_distance, geo=None)
+    # data_spider.spider_some_search_note(query, query_num, cookies_str, base_path, 'all', sort_type_choice, note_type, note_time, note_range, pos_distance, geo=None)
